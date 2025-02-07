@@ -180,6 +180,7 @@ class SystemMonitor:
                 with open(output_file, "w", encoding="utf-8") as f:
                     f.write("".join(typed_text))
             print(f"Text saved to {output_file}")
+            typed_text.clear()
 
     def start(self):
         """
